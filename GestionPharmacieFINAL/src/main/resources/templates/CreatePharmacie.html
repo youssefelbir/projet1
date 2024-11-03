@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Base.html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une pharmacie</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            background-image: url("https://www.timeskipper.co/wp-content/uploads/2023/02/Les-grands-enjeux-de-la-pharmacie-de-demain.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.9);
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="checkbox"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+            padding: 10px 20px; /* Ajout de padding pour l'espace autour des liens */
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+        }
+
+        .navbar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Utilisation de flexbox pour aligner les éléments horizontalement */
+            align-items: center; /* Alignement vertical au centre */
+        }
+
+        .navbar h1 {
+            margin: 0; /* Suppression de la marge par défaut */
+            color: white; /* Couleur du texte */
+            margin-right: 300px;
+        }
+
+        .navbar li {
+            margin-right: 50px; /* Marge entre les éléments */
+        }
+
+        .navbar li:last-child {
+            margin-right: 0; /* Aucune marge à droite pour le dernier élément */
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px; /* Ajout de coins arrondis */
+            transition: background-color 0.3s; /* Transition pour un effet au survol */
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Fond semi-transparent au survol */
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+        }
+    </style>
+</head>
+<body>
+<main class="container mt-5">
+    <div layout:fragment="content">
+
+
+
+<h2>Ajouter une pharmacie</h2>
+<form th:action="@{/newPharmacie}" method="POST" class="container">
+
+    <div class="mb-3">
+        <label for="nomPh" class="form-label">Nom de la pharmacie :</label>
+        <input type="text" id="nomPh" name="nomPh" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label for="ville" class="form-label">Ville :</label>
+        <input type="text" id="ville" name="ville" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label for="zone" class="form-label">Zone :</label>
+        <input type="text" id="zone" name="zone" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label for="mailPh" class="form-label">Adresse e-mail :</label>
+        <input type="email" id="mailPh" name="mailPh" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label for="telPh" class="form-label">Numero de telephone :</label>
+        <input type="tel" id="telPh" name="telPh" pattern="[0-9]{10}" placeholder="Format: 0123456789" maxlength="10" class="form-control">
+    </div>
+
+    <div class="mb-3 form-check">
+        <input type="checkbox" id="garde" name="garde" class="form-check-input">
+        <label for="garde" class="form-check-label">En garde ?</label>
+    </div>
+
+    <input type="submit" value="Ajouter" class="btn btn-primary">
+</form>
+        <footer class="text-center mt-5">
+            <a th:href="@{/pharmaciesliste}" class="btn btn-link">Pharmacies</a>
+        </footer>
+</div>
+</main>
+
+</body>
+</html>

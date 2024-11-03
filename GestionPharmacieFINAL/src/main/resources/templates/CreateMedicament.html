@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Base.html">
+<head>
+    <meta charset="UTF-8">
+    <title>Creation Medicament</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://www.grxstatic.com/4f3rgqwzdznj/6CTxk1o4b2WVDk1GZnmFJ8/f92c92968cbc6b239489ed2796cc83f8/colorful_pills_spilling_out_of_bottle-1064315570.jpg?format=pjpg&auto=webp&width=704');
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: #fff; /* Couleur du texte */
+        }
+
+        header {
+            background-color: #333; /* Couleur de fond de l'en-tête */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #444; /* Couleur de fond du formulaire */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #555; /* Couleur de fond des champs de saisie */
+            color: #fff; /* Couleur du texte des champs de saisie */
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff; /* Couleur du bouton */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3; /* Couleur du bouton au survol */
+        }
+
+        footer {
+            background-color: #333; /* Couleur de fond du pied de page */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+            padding: 10px 20px; /* Ajout de padding pour l'espace autour des liens */
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+        }
+
+        .navbar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Utilisation de flexbox pour aligner les éléments horizontalement */
+            align-items: center; /* Alignement vertical au centre */
+        }
+
+        .navbar h1 {
+            margin: 0; /* Suppression de la marge par défaut */
+            color: white; /* Couleur du texte */
+            margin-right: 300px;
+        }
+
+        .navbar li {
+            margin-right: 50px; /* Marge entre les éléments */
+        }
+
+        .navbar li:last-child {
+            margin-right: 0; /* Aucune marge à droite pour le dernier élément */
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px; /* Ajout de coins arrondis */
+            transition: background-color 0.3s; /* Transition pour un effet au survol */
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Fond semi-transparent au survol */
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+        }
+    </style>
+</head>
+<body>
+<main class="container mt-5">
+    <div layout:fragment="content">
+
+
+
+        <header>
+            <h1>Nouveaux Arrivage Medicament</h1>
+        </header>
+        <main>
+            <form action="newMedicament" method="post">
+                <div>
+                    <label for="label">Label :</label>
+                    <input type="text" id="label" name="label">
+                </div>
+                <div>
+                    <label for="stock">Stock :</label>
+                    <input type="number" step="1" id="stock" name="stock">
+                </div>
+                <div>
+                    <label for="dose">Dose en g :</label>
+                    <input type="number" step="1" id="dose" name="dose">
+                </div>
+                <div>
+                    <label for="prix">Prix :</label>
+                    <input type="number" step="0.01" id="prix" name="prix">
+                </div>
+                <div class="mb-3">
+                    <label for="mediBases" class="form-label">MediBases:</label>
+                    <select class="form-select" id="mediBases" name="medibase">
+                        <option th:each="mb : ${medibaseVue}" th:value="${mb.id}" th:text="${mb.nom}"></option>
+                    </select>
+                </div>
+                <br>
+                <br>
+                <div>
+                    <button type="submit">Save</button>
+                </div>
+            </form>
+        </main>
+        <footer>
+            <a th:href="@{listemedicaments}">Nos Medicaments</a>
+        </footer>
+    </div>
+</main>
+
+</body>
+</html>

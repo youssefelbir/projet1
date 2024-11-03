@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Base.html">
+<head>
+    <meta charset="UTF-8">
+    <title>NOS PHARMACIES</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #333; /* Couleur du texte */
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        .pharmacy-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .pharmacy-card {
+            flex-basis: calc(33.33% - 20px);
+            margin-bottom: 20px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.7); /* Fond semi-transparent */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .pharmacy-card:hover {
+            background-color: rgba(255, 255, 255, 0.9); /* Fond semi-transparent */
+        }
+
+        .pharmacy-image {
+            position: relative;
+        }
+
+        .pharmacy-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .pharmacy-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+            color: white;
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 0 0 10px 10px;
+            transition: opacity 0.3s, font-size 0.3s;
+            opacity: 1;
+        }
+
+        .pharmacy-image:hover .pharmacy-name {
+            opacity: 1;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+            padding: 10px 20px; /* Ajout de padding pour l'espace autour des liens */
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+        }
+
+        .navbar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Utilisation de flexbox pour aligner les éléments horizontalement */
+            align-items: center; /* Alignement vertical au centre */
+        }
+
+        .navbar h1 {
+            margin: 0; /* Suppression de la marge par défaut */
+            color: white; /* Couleur du texte */
+            margin-right: 300px;
+        }
+
+        .navbar li {
+            margin-right: 50px; /* Marge entre les éléments */
+        }
+
+        .navbar li:last-child {
+            margin-right: 0; /* Aucune marge à droite pour le dernier élément */
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px; /* Ajout de coins arrondis */
+            transition: background-color 0.3s; /* Transition pour un effet au survol */
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Fond semi-transparent au survol */
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+        }
+        .ajout-pharmacie {
+            margin-right: 20px; /* Ajoute une marge à droite pour séparer le bouton du titre */
+        }
+        .ph{
+            margin-left: 100px;
+        }
+    </style>
+    <script>
+        function changeBackground() {
+            var images = [
+                'https://www.timeskipper.co/wp-content/uploads/2023/02/Les-grands-enjeux-de-la-pharmacie-de-demain.jpg',
+                'https://img.freepik.com/photos-gratuite/vue-dessus-composition-bureau-medical-espace-copie_23-2148502942.jpg',
+                'https://doers.ma/wp-content/uploads/2022/11/Ouvrir-une-pharmacie-au-Maroc.jpg',
+                'https://static.vecteezy.com/ti/vecteur-libre/p1/3476771-pharmacie-background-medicine-objects-pills-on-wooden-table-top-view-template-for-web-banner-of-pharmacy-sale-or-advertising-vectoriel.jpg',
+                'https://img.pikbest.com/wp/202347/capsule-pill-pharmacy-and-healthcare-concept-blue-background-with-pills-in-panoramic-layout-3d-render_9763081.jpg!w700wp'
+            ];
+            var currentIndex = 0;
+
+            function change() {
+                document.body.style.backgroundImage = 'url("' + images[currentIndex] + '")';
+                currentIndex = (currentIndex + 1) % images.length;
+            }
+
+            setInterval(change, 3000);
+        }
+        window.onload = changeBackground;
+    </script>
+</head>
+<body>
+<main class="container mt-5">
+    <div layout:fragment="content">
+
+
+
+        <header style="display: flex; justify-content: space-between; align-items: center;">
+            <h1 class="ph">NOS PHARMACIES</h1>
+            <div  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">
+            <button class="btn btn-success ajout-pharmacie" ><a href="ajoutPharmacie"  style="text-decoration: none; color: #0056b3;">Nouvelle Pharmacie</a></button>
+    </div>
+        </header>
+<main class="pharmacy-container">
+    <div th:each="pharma : ${pharmacieVue2}" class="pharmacy-card">
+        <div class="pharmacy-image">
+            <img src="https://cdn.futura-sciences.com/buildsv6/images/wide1920/e/a/3/ea393f271d_50148115_preparateur-en-pharmacie1.jpg" th:alt="${pharma.nomPh}" />
+            <p class="pharmacy-name" th:text="'PHARMACIE ' + ${pharma.nomPh} + ' (' + ${pharma.ville} + ')'"></p>
+        </div>
+        <p><b th:text="${pharma.nomPh}"></b></p>
+        <p th:text="'Email: ' + ${pharma.mailPh}"></p>
+        <p th:text="'Téléphone: ' + ${pharma.telPh}"></p>
+        <p th:text="'Ville: ' + ${pharma.ville}"></p>
+        <p th:text="'Zone: ' + ${pharma.zone}"></p>
+        <p th:text="'En garde? ' + (${pharma.garde} ? 'Oui' : 'Non')" ></p>
+        <div  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">
+        <button class="btn btn-danger"><a th:href="@{'deletePharmacie?id=' + ${pharma.id}}"  th:onclick="return confirm(' YOU WANT TO DELETE THIS INSTANCE ?')">Supprimer</a></button>
+        <button class="btn btn-primary"><a th:href="@{'editPharmacie?id=' + ${pharma.id}}">Modifier</a></button>
+        </div>
+        <br>
+    </div>
+</main>
+        <div  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">
+        <footer>
+            <a href="ajoutPharmacie" class="btn btn-success">Nouvelle Pharmacie</a>
+        </footer></div>
+    </div>
+
+</main>
+</body>
+
+</html>

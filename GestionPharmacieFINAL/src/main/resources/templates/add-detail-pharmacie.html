@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Base.html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un détail de la pharmacie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #333;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        select,
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+            padding: 10px 20px; /* Ajout de padding pour l'espace autour des liens */
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+        }
+
+        .navbar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Utilisation de flexbox pour aligner les éléments horizontalement */
+            align-items: center; /* Alignement vertical au centre */
+        }
+
+        .navbar h1 {
+            margin: 0; /* Suppression de la marge par défaut */
+            color: white; /* Couleur du texte */
+            margin-right: 300px;
+        }
+
+        .navbar li {
+            margin-right: 50px; /* Marge entre les éléments */
+        }
+
+        .navbar li:last-child {
+            margin-right: 0; /* Aucune marge à droite pour le dernier élément */
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px; /* Ajout de coins arrondis */
+            transition: background-color 0.3s; /* Transition pour un effet au survol */
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Fond semi-transparent au survol */
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+        }
+    </style>
+</head>
+<body>
+<main class="container mt-5">
+    <div layout:fragment="content">
+
+
+
+<h1>Ajouter un détail de pharmacie</h1>
+<form th:action="@{/addDetailPharmacie}" method="post">
+    <label for="medicamentId">Sélectionner le médicament :</label>
+    <select id="medicamentId" name="medicamentId">
+        <th:block th:each="medicament : ${medicamentsVue}">
+            <option th:value="${medicament.id}" th:text="${'ID: ' + medicament.id + ' - ' + medicament.label + ' (' + medicament.dose + ' g)'}"></option>
+        </th:block>
+    </select>
+    <label for="pharmaciId">Sélectionner la pharmacie :</label>
+    <select id="pharmaciId" name="pharmaciId">
+        <th:block th:each="phar : ${pharmacies}">
+            <option th:value="${phar.id}" th:text="${'ID: ' + phar.id + ' - ' + phar.nomPh}"></option>
+        </th:block>
+    </select>
+    <label for="quantite">Quantité :</label>
+    <input type="number" id="quantite" name="quantite">
+    <button type="submit">Ajouter</button>
+</form>
+</div>
+</main>
+<footer>
+    <a href="/">Retour aux pharmacies</a>
+</footer>
+</body>
+</html>

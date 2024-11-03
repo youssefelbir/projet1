@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Base.html">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denied</title>
+</head>
+<body>
+<main class="container mt-5">
+    <div layout:fragment="content">
+
+
+<h1>Access Denied</h1>
+<p>You are not authorized to access this resource. <a th:href="@{/home}">Go back to homepage</a></p>
+</div>
+</main>
+</body>
+</html>

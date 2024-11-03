@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Base.html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creation Gerant</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('https://wallpapercave.com/wp/wp7728120.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+            padding: 10px 20px; /* Ajout de padding pour l'espace autour des liens */
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+        }
+
+        .navbar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Utilisation de flexbox pour aligner les éléments horizontalement */
+            align-items: center; /* Alignement vertical au centre */
+        }
+
+        .navbar h1 {
+            margin: 0; /* Suppression de la marge par défaut */
+            color: white; /* Couleur du texte */
+            margin-right: 300px;
+        }
+
+        .navbar li {
+            margin-right: 50px; /* Marge entre les éléments */
+        }
+
+        .navbar li:last-child {
+            margin-right: 0; /* Aucune marge à droite pour le dernier élément */
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px; /* Ajout de coins arrondis */
+            transition: background-color 0.3s; /* Transition pour un effet au survol */
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Fond semi-transparent au survol */
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+        }
+    </style>
+</head>
+<body>
+<main class="container mt-5">
+    <div layout:fragment="content">
+
+
+
+        <header>
+            <h1>Nouveau Gerant</h1>
+        </header>
+        <main>
+            <form th:action="@{/newGerant}" method="post">
+                <div>
+                    <label for="nom">nom :</label>
+                    <input type="text" id="nom" name="nom">
+                </div>
+
+                <div>
+                    <label for="prenom">Prenom :</label>
+                    <input type="text" id="prenom" name="prenom">
+                </div>
+                <div>
+                    <label for="mail">Email :</label>
+                    <input type="email" id="mail" name="mail">
+                </div>
+                <div>
+                    <label for="tel">Telephone :</label>
+                    <input type="tel" id="tel" name="tel" pattern="[0-9]{10}" placeholder="Format: 0123456789" maxlength="10">
+                </div>
+                <div>
+                    <label for="cin">CIN :</label>
+                    <input type="text" id="cin" name="cin">
+                </div>
+                <div>
+                    <label for="role">role :</label>
+                    <input type="text" id="role" name="role">
+                </div>
+                <div>
+                    <label for="bonus">bonus :</label>
+                    <input type="number" id="bonus" name="bonus">
+                </div>
+
+                <br>
+                <br>
+                <div>
+                    <input type="submit" value="Enregistrer">
+                </div>
+            </form>
+        </main>
+    </div>
+</main>
+<footer>
+    <a href="listegerant">Nos Gerants</a>
+</footer>
+</body>
+</html>

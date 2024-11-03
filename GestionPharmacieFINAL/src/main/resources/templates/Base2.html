@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Pharmacies Management</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #343a40; /* Couleur de fond du navbar */
+            padding: 20px; /* Ajout de padding pour l'espace autour des liens */
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+            height: 80px; /* Agrandir la hauteur du navbar */
+        }
+
+        .navbar-brand {
+            color: #fff; /* Couleur du texte */
+            font-size: 24px; /* Taille de la police */
+            margin-right: 100px; /* Marge à droite pour séparer du reste des éléments */
+            line-height: 40px; /* Aligner verticalement le texte par rapport à la hauteur du navbar */
+        }
+
+        .navbar-nav {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Utilisation de flexbox pour aligner les éléments horizontalement */
+        }
+
+        .nav-item {
+            margin-right: 20px; /* Marge entre les éléments */
+        }
+
+        .nav-item:last-child {
+            margin-right: 0; /* Aucune marge à droite pour le dernier élément */
+        }
+
+        .nav-link {
+            color: #fff; /* Couleur du texte */
+            text-decoration: none; /* Suppression du soulignement des liens */
+            font-size: 18px; /* Taille de la police */
+            transition: color 0.3s; /* Transition pour un effet au survol */
+            line-height: 40px; /* Aligner verticalement le texte par rapport à la hauteur du navbar */
+        }
+
+        .nav-link:hover {
+            color: #ccc; /* Couleur du texte au survol */
+        }
+        h3 {
+            float: right;
+            margin: 30px;
+        }
+        .logout{
+            float: right;
+            margin: 10px;
+            margin-left: 200px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm">
+    <a class="navbar-brand"  th:href="@{pharmaciesliste}" > Pharmacies Management</a>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/}">HOME</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{listemedicaments}">ListeMedicaments</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{listemedibase}">ListeMediBase</a>
+        </li>
+        <li>
+            <a class="nav-link" th:href="@{listeemployes}">ListeEmploye</a>
+        </li>
+        <li>
+            <!-- <a class="nav-link" th:href="@{add}">Ajouter</a>-->
+            <a class="nav-link" th:href="@{listeDetailPharmacie}">ListeDetail</a>
+        </li>
+        <li>
+            <!-- <a class="nav-link" th:href="@{add}">Ajouter</a>-->
+            <a class="nav-link" th:href="@{ClientsList}">ListeClient</a>
+        </li>
+        <li>
+            <!-- <a class="nav-link" th:href="@{add}">Ajouter</a>-->
+            <a class="nav-link" th:href="@{LivreurList}">ListeLivreur</a>
+        </li>
+        <li>
+            <!-- <a class="nav-link" th:href="@{add}">Ajouter</a>-->
+            <a class="nav-link" th:href="@{CommandeCList}">ListeCommandeC</a>
+        </li>
+        <li>
+            <!-- <a class="nav-link" th:href="@{add}">Ajouter</a>-->
+            <a class="nav-link" th:href="@{DetailCommandeCList}">ListeDetailCommandeC</a>
+        </li>
+
+        <!-- <li class="nav-item dropdown">
+             <a class="nav-link " href="#" role="button" data-bs-toggle="dropdown" th:text="'WELCOME '+${#authentication.name}">
+                 [username]
+             </a>
+                 <li>-->
+        <li>
+        <form method="post" class="logout" th:action="@{/logout}">
+            <button type="submit"><a   style="text-decoration: none; color: #0056b3;">Logout</a></button>
+        </form>
+
+        </li>
+
+        </li>
+    </ul>
+</nav>
+<br>
+<h3>  <p href="#"  th:text="'WELCOME '+${#authentication.name}">
+    [username]
+</p></h3><br>
+<main class="container mt-5">
+    <div layout:fragment="content">
+
+    </div>
+</main>
+</body>
+</html>

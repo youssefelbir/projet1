@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/themeleaf-extras-springsecurity6"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Pharmacies Management</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #343a40; /* Couleur de fond du navbar */
+            padding: 20px; /* Ajout de padding pour l'espace autour des liens */
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+            height: 80px; /* Agrandir la hauteur du navbar */
+        }
+
+        .navbar-brand {
+            color: #fff; /* Couleur du texte */
+            font-size: 24px; /* Taille de la police */
+            margin-right: 100px; /* Marge à droite pour séparer du reste des éléments */
+            line-height: 40px; /* Aligner verticalement le texte par rapport à la hauteur du navbar */
+        }
+
+        .navbar-nav {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Utilisation de flexbox pour aligner les éléments horizontalement */
+            align-items: center; /* Alignement vertical au centre */
+        }
+
+        .nav-item {
+            margin-right: 20px; /* Marge entre les éléments */
+        }
+
+        .nav-item:last-child {
+            margin-right: 0; /* Aucune marge à droite pour le dernier élément */
+        }
+
+        .nav-link {
+            color: #fff; /* Couleur du texte */
+            text-decoration: none; /* Suppression du soulignement des liens */
+            font-size: 18px; /* Taille de la police */
+            transition: color 0.3s; /* Transition pour un effet au survol */
+            line-height: 40px; /* Aligner verticalement le texte par rapport à la hauteur du navbar */
+        }
+
+        .nav-link:hover {
+            color: #ccc; /* Couleur du texte au survol */
+        }
+
+        /* Menu déroulant */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: black;
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-item {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+        }
+
+        .dropdown-item:hover {
+            background-color: #555;
+        }
+        .logout{
+            float: right;
+            margin: 10px;
+            margin-left: 200px;
+        }
+        h3 {
+            float: right;
+            margin: 30px;
+            color: #f0f0f0;
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm" >
+    <a class="navbar-brand" th:href="@{pharmaciesliste}" >Pharmacies Management</a>
+    <ul class="navbar-nav" >
+        <li class="nav-item">
+            <a class="nav-link" href="/">HOME</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" >Liste des Pages</a>
+            <div class="dropdown-menu" style="background-color: #111111;">
+                <a class="dropdown-item" th:href="@{listemedicaments}">ListeMedicaments</a>
+                <a class="dropdown-item" th:href="@{listemedibase}">ListeMediBase</a>
+                <a class="dropdown-item" th:href="@{listeemployes}" th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">ListeEmploye</a>
+                <a class="dropdown-item" th:href="@{listeDetailPharmacie}" th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">ListeDetail</a>
+                <a class="dropdown-item" th:href="@{ClientsList}" th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">ListeClient</a>
+                <a class="dropdown-item" th:href="@{LivreurList}" th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">ListeLivreur</a>
+                <a class="dropdown-item" th:href="@{CommandeCList}">ListeCommandeC</a>
+                <a class="dropdown-item" th:href="@{DetailCommandeCList}">ListeDetailCommandeC</a>
+                <a class="dropdown-item" th:href="@{listecommandefour}"  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">listecommandefour</a>
+                <a class="dropdown-item" th:href="@{listeDetailCommandeFour}"  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">listedetailcommandef</a>
+                <a class="dropdown-item" th:href="@{ListeFactureFour}"  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">listeFactureFour</a>
+                    <a class="dropdown-item" th:href="@{listegerant}" th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'',''USER'')')}">listeGerant</a>
+                    <a class="dropdown-item" th:href="@{listepersonnel}" th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'',''USER'')')}">listePersonnel</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Ajouter Un Element</a>
+            <div class="dropdown-menu" style="background-color: #111111;">
+                <a class="dropdown-item" th:href="@{ajoutMedicament}" th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">Medicaments</a>
+                <a class="dropdown-item" th:href="@{ajoutMediBase}" th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">MediBase</a>
+                <a class="dropdown-item" th:href="@{ajoutEmploye}" th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">Employe</a>
+                <a class="dropdown-item" th:href="@{ajoutDetailPharmacie}" th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">DetailPha</a>
+                <a class="dropdown-item" th:href="@{CreateClient}" th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'',''USER'')')}">Client</a>
+                <a class="dropdown-item" th:href="@{CreateLivreur}" th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">Livreur</a>
+                <a class="dropdown-item" th:href="@{CreateCommandeC}" th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'',''USER'')')}">CommandeC</a>
+                <a class="dropdown-item" th:href="@{CreateDetailCommandeC}" th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'',''USER'')')}">DetailCommandeC</a>
+                <a class="dropdown-item" th:href="@{ajoutCommandeFour}"  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">CommandeFour</a>
+                <a class="dropdown-item" th:href="@{ajoutDetailCommandeFour}"  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">DetailCommandeF</a>
+                <a class="dropdown-item" th:href="@{ajoutFactureFour}"  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">FactureFour</a>
+                <a class="dropdown-item" th:href="@{ajoutGerant}"  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">Gerant</a>
+                <a class="dropdown-item" th:href="@{ajoutPersonnel}"  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">Personnel</a>
+            </div>
+        </li>
+
+        <li class="nav-item dropdown">
+           <i> <a class="nav-link " href="#" role="button" style="margin-left: 250px;color: #007bff" data-bs-toggle="dropdown" th:text="'WELCOME '+${#authentication.name}">
+                [username]
+            </a></i>
+        <li class="nav-item">
+            <a class="nav-link" href="#"><U>CONNEXION</U></a>
+            <div class="dropdown-menu" style="background-color: #111111;">
+                <a sec:authorize="!isAuthenticated()" class="dropdown-item" href="#" style="text-decoration: none; color: #0056b3;">LOGIN</a>
+                <form method="post" th:action="@{/logout}">
+                    <button sec:authorize="isAuthenticated()" type="submit"><a class="dropdown-item"  style="text-decoration: none; color: #0056b3;">Logout</a></button>
+                </form>
+            </div>
+        </li>
+
+        </li>
+
+    <!--    <li>
+            <h3   href="#"  th:text="'WELCOME '+${#authentication.name}">
+                [username]</h3>
+        </li>
+        <li>
+            <form method="post" class="logout" th:action="@{/logout}">
+                <button type="submit"><a   style="text-decoration: none; color: #0056b3;">Logout</a></button>
+            </form>
+
+        </li>-->
+    </ul>
+</nav>
+<br>
+<br>
+<main class="container mt-5">
+    <div layout:fragment="content">
+
+    </div>
+</main>
+</body>
+</html>

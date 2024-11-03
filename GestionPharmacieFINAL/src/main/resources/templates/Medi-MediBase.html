@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Medicament</title>
+</head>
+<body>
+<h1>Edit Medicament</h1>
+<form th:action="@{/api/medicaments/{id}/medi-bases/{medibaseId}(id=${medicament.id}, medibaseId=__${medibase.id}__)}" method="post">
+    <label >MediBase:</label>
+    <select>
+        <option th:each="medibase : ${mediBases}" th:value="${medibase.id}" th:text="${medibase.nom}"></option>
+    </select>
+    <button type="submit">Add MediBase</button>
+</form>
+</body>
+</html>

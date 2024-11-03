@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Base.html">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #333; /* Fond sombre */
+            color: #fff; /* Couleur du texte */
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+            padding: 10px 20px; /* Ajout de padding pour l'espace autour des liens */
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+        }
+
+        .navbar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Utilisation de flexbox pour aligner les éléments horizontalement */
+            align-items: center; /* Alignement vertical au centre */
+        }
+
+        .navbar h1 {
+            margin: 0; /* Suppression de la marge par défaut */
+            color: white; /* Couleur du texte */
+            margin-right: 300px;
+        }
+
+        .navbar li {
+            margin-right: 50px; /* Marge entre les éléments */
+        }
+
+        .navbar li:last-child {
+            margin-right: 0; /* Aucune marge à droite pour le dernier élément */
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px; /* Ajout de coins arrondis */
+            transition: background-color 0.3s; /* Transition pour un effet au survol */
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Fond semi-transparent au survol */
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+        }
+
+        .hero {
+            background-image: url("https://i.pinimg.com/736x/f4/93/f9/f493f9d5132409e58fd1ccbe71b7a0b5.jpg");
+            background-position: center;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            padding: 100px 0;
+            background-color: rgba(108, 117, 125, 0.5);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            color: #e5bf93;
+            border-left-color: #111111;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s; /* Transition pour un effet au survol */
+        }
+
+        .cta-btn:hover {
+            background-color: darkblue; /* Changement de couleur au survol */
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            width: 100%; /* Largeur maximale */
+        }
+
+        .pharmacies {
+            background-color: #fff; /* Fond blanc */
+            padding: 40px; /* Espacement intérieur */
+            border-radius: 10px; /* Coins arrondis */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Ombre portée */
+            margin: 0 auto; /* Centrage horizontal */
+            max-width: 800px; /* Largeur maximale */
+        }
+
+        .pharmacies-content {
+            margin: 0 auto; /* Centrage horizontal */
+            max-width: 600px; /* Largeur maximale */
+            text-align: center; /* Alignement du contenu au centre */
+        }
+
+        .pharmacies h2 {
+            font-size: 32px; /* Taille de la police */
+            margin-bottom: 20px; /* Marge inférieure */
+            color: cadetblue; /* Couleur du texte */
+        }
+
+        .pharmacies p {
+            font-size: 18px; /* Taille de la police */
+            margin-bottom: 20px; /* Marge inférieure */
+            color: #111111;
+
+        }
+
+        .presentation h3 {
+            font-size: 24px; /* Taille de la police */
+            margin-bottom: 15px; /* Marge inférieure */
+            color: cadetblue; /* Couleur du texte */
+
+        }
+
+        .presentation ul {
+            list-style-type: disc; /* Style de la liste */
+            margin-left: 20px; /* Marge de gauche */
+            padding-left: 20px; /* Rembourrage de gauche */
+            color: #111111;
+
+        }
+
+        .presentation li {
+            font-size: 16px; /* Taille de la police */
+            margin-bottom: 10px; /* Marge inférieure */
+            color: #111111;
+        }
+
+        .pharmacies-btn {
+            background-color: #007bff; /* Couleur de fond */
+            color: #fff; /* Couleur du texte */
+            padding: 15px 30px; /* Rembourrage */
+            text-decoration: none; /* Pas de soulignement */
+            border-radius: 5px; /* Coins arrondis */
+            font-weight: bold; /* Police en gras */
+            transition: background-color 0.3s; /* Transition de couleur de fond */
+            display: inline-block; /* Affichage en ligne */
+            margin-top: 20px; /* Marge supérieure */
+        }
+
+        .pharmacies-btn:hover {
+            background-color: #007bff; /* Changement de couleur de fond au survol */
+        }
+
+
+        .presentation {
+            text-align: left;
+        }
+
+        .presentation h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: cadetblue;
+            background-color: #5a6268;
+        }
+
+        .presentation ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 20px;
+        }
+
+        .presentation li {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+<main class="container mt-5">
+    <div layout:fragment="content">
+        <section class="hero" >
+            <div class="hero-content" >
+                <h2>Découvrez nos Collaborations Avec les Meilleures Pharmacies du Maroc</h2>
+                <p>TOUT EST ASSURE. VOTRE SECURITE EST NOTRE BUT.</p>
+                <a th:href="@{pharmaciesliste}"  class="cta-btn" >CONSULTER LES PHARMACIES</a>
+            </div>
+        </section>
+        <br>
+        <div class="pharmacies">
+            <div class="pharmacies-content">
+                <h2>Des Services de Qualité pour Vous</h2>
+                <p>Nous offrons une gamme de services pour vous assurer le meilleur soutien.</p>
+                <div class="presentation">
+                    <h3>Présentation de Notre Site</h3>
+
+                    <ul>
+                        <p>Bienvenue sur notre plateforme dédiée aux pharmacies au Maroc. Notre objectif est de faciliter l'accès à des produits pharmaceutiques de qualité et de fournir un service client exceptionnel.</p>
+                        <li>Une large sélection de médicaments et de produits de santé.</li>
+                        <li>Des informations détaillées sur chaque produit, y compris les instructions d'utilisation et les contre-indications.</li>
+                        <li>La possibilité de consulter les pharmacies partenaires près de chez vous.</li>
+                        <li>Un système de commande en ligne pour une livraison rapide et sécurisée.</li>
+                        <li>Un service client disponible pour répondre à toutes vos questions et préoccupations.</li>
+                    </ul>
+                    <div>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/_SJV31BsoUc?si=Zj22sm0fNRlSGNxC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                    <a th:href="@{pharmaciesliste}"  class="pharmacies-btn">Découvrir nos services</a>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="col-lg-6 col-12 mx-auto mt-5 mt-lg-0 ps-lg-5">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26589.827737683954!2d-7.641217251557485!3d33.58639870159314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7d2944b85d2ef%3A0x701f5b9780f6766e!2sVilla%20des%20Arts%20de%20Casablanca!5e0!3m2!1sfr!2sma!4v1715342162282!5m2!1sfr!2sma" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <strong class="text-white">
+            <i class="bi-geo-alt me-2"></i>
+            EMSI CENTRE CASABLANCA
+        </strong>
+
+    </div>
+
+    <div class="col-lg-4 col-12 me-auto">
+        <em class="text-white d-block mb-4">Where to find us?</em>
+
+
+        <footer>
+            <p>&copy; 2024 FLA EST RAVI DE TRAVAILLER AVEC VOUS.</p>
+        </footer>
+    </div>
+</main>
+
+</body>
+</html>

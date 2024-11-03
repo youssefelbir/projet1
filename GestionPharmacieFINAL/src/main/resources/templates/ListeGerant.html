@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="Base.html">
+<head>
+    <meta charset="UTF-8">
+    <title>Nos Gerants </title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://w0.peakpx.com/wallpaper/942/533/HD-wallpaper-technology-physics-and-chemistry-chemistry.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: white; /* Couleur du texte */
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        td {
+            background-color: rgba(0, 0, 0, 0.5); /* Arrière-plan noir pour les cellules */
+        }
+
+        button {
+            background-color: black;
+            border: none;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+            padding: 10px 20px; /* Ajout de padding pour l'espace autour des liens */
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+        }
+
+        .navbar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Utilisation de flexbox pour aligner les éléments horizontalement */
+            align-items: center; /* Alignement vertical au centre */
+        }
+
+        .navbar h1 {
+            margin: 0; /* Suppression de la marge par défaut */
+            color: white; /* Couleur du texte */
+            margin-right: 300px;
+        }
+
+        .navbar li {
+            margin-right: 50px; /* Marge entre les éléments */
+        }
+
+        .navbar li:last-child {
+            margin-right: 0; /* Aucune marge à droite pour le dernier élément */
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px; /* Ajout de coins arrondis */
+            transition: background-color 0.3s; /* Transition pour un effet au survol */
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Fond semi-transparent au survol */
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px; /* Ajout d'une marge en bas */
+        }
+        .ajout-med {
+            margin-right: 20px; /* Ajoute une marge à droite pour séparer le bouton du titre */
+        }
+        .ph{
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body>
+<main class="container mt-5">
+    <div layout:fragment="content">
+
+        <header style="display: flex; justify-content: space-between; align-items: center;">
+            <h1 class="ph">Nos  Gerants</h1>
+            <div  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">
+                <button class="btn btn-success ajout-med"><a href="ajoutGerant" style="text-decoration: none; color: aliceblue;">Nouveau gerant</a></button></div>
+        </header>
+
+        <main>
+            <table class="table tabble-stripped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOM</th>
+                    <th>PRENOM</th>
+                    <th>EMAIL</th>
+                    <th>TELEPHONE</th>
+                    <div  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">
+                    <th>CIN</th>
+                    <th>role</th>
+                        <th>bonus</th></div>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ger : ${GerantVue}">
+                    <td th:text="${ger.id}"></td>
+                    <td th:text="${ger.nom}"></td>
+                    <td th:text="${ger.prenom}"></td>
+                    <td th:text="${ger.mail}"></td>
+                    <td th:text="${ger.tel}"></td>
+                    <div  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">
+                    <td th:text="${ger.cin}"></td>
+                    <td th:text="${ger.role}"></td>
+                        <td th:text="${ger.bonus}"></td></div>
+                    <div  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">
+                    <td style="text-align: right;">
+                        <button><a th:href="@{'deleteGerant?id=' + ${ger.id}}" onclick="return confirm('YOU WANT TO DELETE THIS INSTANCE ?')">Supprimer</a></button>
+                        <button><a th:href="@{'editGerant?id=' + ${ger.id}}">Modifier</a></button>
+                    </td></div>
+                </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+</main>
+<footer>
+    <div  th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PERSONNEL'')')}">
+        <a th:href="@{ajoutGerant}">Nouveau gerant</a></div>
+</footer>
+</body>
+</html>
